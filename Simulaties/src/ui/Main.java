@@ -1,10 +1,5 @@
 package ui;
 
-import infecties.Toestand;
-import infecties.evolutie.Evolutie;
-import infecties.evolutie.Terminaal;
-import infecties.propagatie.BernoulliPropagatie;
-import infecties.propagatie.Propagatie;
 
 import org.apache.commons.collections15.Factory;
 import org.eclipse.swt.SWT;
@@ -26,6 +21,12 @@ import org.eclipse.swt.widgets.ExpandItem;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+
+import core.infecties.Toestand;
+import core.infecties.evolutie.Evolutie;
+import core.infecties.evolutie.Terminaal;
+import core.infecties.propagatie.Bernoulli;
+import core.infecties.propagatie.Propagatie;
 
 import edu.uci.ics.jung.algorithms.generators.random.ErdosRenyiGenerator;
 import edu.uci.ics.jung.graph.Graph;
@@ -65,10 +66,25 @@ public class Main extends Composite {
         formLayout.marginWidth = 3;
         formLayout.marginHeight = 3;
         
+        /*Label graafModelLabel = new Label(cGraaf, SWT.NONE);
+        graafModelLabel.setText("Graaf model");
+        Combo graafModelCombo = new Combo(cGraaf, SWT.SINGLE | SWT.BORDER);
+        FormData data = new FormData();
+		data.top = new FormAttachment(graafModelCombo, 0, SWT.CENTER);
+		graafModelLabel.setLayoutData(data);
+		data = new FormData();
+		data.left = new FormAttachment(graafModelLabel, 5);
+		data.right = new FormAttachment(100, 0);
+		graafModelCombo.setLayoutData(data);*/
+        
+        
+        
+        
+        
         knopenLabel = new Label(cGraaf, SWT.NONE);
         knopenLabel.setText("Aantal knopen");
         knopenText = new Text(cGraaf, SWT.SINGLE | SWT.BORDER);
-        FormData data = new FormData();
+        FormData /**/ data = new FormData();
 		data.top = new FormAttachment(knopenText, 0, SWT.CENTER);
 		knopenLabel.setLayoutData(data);
 		data = new FormData();
@@ -200,7 +216,7 @@ public class Main extends Composite {
 				Toestand<String, Integer> toestand = venster.getToestand();
 				
 				//Evolutie evolutie = new Terminaal(graph, toestand);
-				Propagatie propagatie = new BernoulliPropagatie(graph, toestand);
+				Propagatie propagatie = new Bernoulli(graph, toestand);
 				
 				propagatie.propageer(Integer.parseInt(iteratieText.getText()), Double.parseDouble(verspreidingsText.getText()));
 				venster.refresh();

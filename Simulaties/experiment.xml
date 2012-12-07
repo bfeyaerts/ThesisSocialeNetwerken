@@ -1,0 +1,73 @@
+<?xml version="1.0"?><config>
+	<graaf>	<model class="core.graaf.modellen.ErdosRenyi">	<parameter class="java.lang.Integer" value="20"></parameter>
+	<parameter class="java.lang.Double" value="0.2"></parameter>
+	<parameter class="java.lang.Boolean" value="false"></parameter>
+</model>
+	<graph>	<knopen>	<knoop id="11"></knoop>
+	<knoop id="8"></knoop>
+	<knoop id="19"></knoop>
+	<knoop id="2"></knoop>
+	<knoop id="18"></knoop>
+	<knoop id="13"></knoop>
+	<knoop id="15"></knoop>
+	<knoop id="7"></knoop>
+	<knoop id="3"></knoop>
+	<knoop id="4"></knoop>
+	<knoop id="17"></knoop>
+	<knoop id="9"></knoop>
+	<knoop id="1"></knoop>
+	<knoop id="6"></knoop>
+	<knoop id="12"></knoop>
+	<knoop id="14"></knoop>
+	<knoop id="16"></knoop>
+	<knoop id="0"></knoop>
+	<knoop id="10"></knoop>
+	<knoop id="5"></knoop>
+</knopen>
+	<takken>	<tak id="14" begin="3" einde="9"></tak>
+	<tak id="2" begin="12" einde="1"></tak>
+	<tak id="24" begin="0" einde="16"></tak>
+	<tak id="1" begin="12" einde="13"></tak>
+	<tak id="22" begin="0" einde="15"></tak>
+	<tak id="25" begin="8" einde="7"></tak>
+	<tak id="32" begin="1" einde="2"></tak>
+	<tak id="31" begin="4" einde="11"></tak>
+	<tak id="6" begin="6" einde="10"></tak>
+	<tak id="33" begin="7" einde="5"></tak>
+	<tak id="30" begin="15" einde="11"></tak>
+	<tak id="3" begin="6" einde="3"></tak>
+	<tak id="4" begin="6" einde="0"></tak>
+	<tak id="16" begin="3" einde="1"></tak>
+	<tak id="27" begin="9" einde="7"></tak>
+	<tak id="29" begin="10" einde="18"></tak>
+	<tak id="11" begin="17" einde="18"></tak>
+	<tak id="21" begin="0" einde="9"></tak>
+	<tak id="20" begin="0" einde="8"></tak>
+	<tak id="9" begin="6" einde="19"></tak>
+	<tak id="18" begin="3" einde="19"></tak>
+	<tak id="5" begin="6" einde="9"></tak>
+	<tak id="7" begin="6" einde="11"></tak>
+	<tak id="10" begin="17" einde="11"></tak>
+	<tak id="35" begin="11" einde="18"></tak>
+	<tak id="19" begin="13" einde="4"></tak>
+	<tak id="13" begin="3" einde="8"></tak>
+	<tak id="37" begin="18" einde="5"></tak>
+	<tak id="0" begin="12" einde="6"></tak>
+	<tak id="36" begin="11" einde="5"></tak>
+	<tak id="12" begin="17" einde="16"></tak>
+	<tak id="26" begin="8" einde="14"></tak>
+	<tak id="8" begin="6" einde="18"></tak>
+	<tak id="15" begin="3" einde="15"></tak>
+	<tak id="17" begin="3" einde="7"></tak>
+	<tak id="34" begin="7" einde="2"></tak>
+	<tak id="28" begin="9" einde="5"></tak>
+	<tak id="23" begin="0" einde="5"></tak>
+</takken>
+</graph>
+</graaf>
+	<experiment>	<evolutie class="core.infecties.evolutie.Terminaal"></evolutie>
+	<diagnoses default="GEZOND"></diagnoses>
+	<propagatie class="core.infecties.propagatie.Bernoulli">	<parameter class="java.lang.Double" value="0.2"></parameter>
+</propagatie>
+</experiment>
+</config>

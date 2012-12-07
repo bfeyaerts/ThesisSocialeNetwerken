@@ -1,7 +1,5 @@
 package ui;
 
-import infecties.InfectieGraad;
-import infecties.Toestand;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,6 +13,9 @@ import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+
+import core.infecties.InfectieGraad;
+import core.infecties.Toestand;
 
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
