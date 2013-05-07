@@ -1,0 +1,16 @@
+<?xml version="1.0"?><config>	<graaf>	<model class="core.graaf.modellen.MacroMicro">	<parameter class="core.Configuratie">	<configuratie>	<model class="core.graaf.modellen.ErdosRenyi">	<parameter class="java.lang.Integer" value="5"></parameter>
+	<parameter class="java.lang.Double" value="0.7"></parameter>
+	<parameter class="java.lang.Boolean" value="false"></parameter>
+</model>
+</configuratie>
+</parameter>
+	<parameter class="core.Configuratie">	<configuratie>	<model class="core.graaf.modellen.ScaleFree">	<parameter class="java.lang.Integer" value="50"></parameter>
+	<parameter class="java.lang.Double" value="3.0"></parameter>
+	<parameter class="java.lang.Boolean" value="false"></parameter>
+</model>
+</configuratie>
+</parameter>
+	<parameter class="java.lang.Boolean" value="false"></parameter>
+</model>
+</graaf>
+</config>

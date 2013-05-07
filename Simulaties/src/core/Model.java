@@ -7,4 +7,8 @@ public abstract class Model {
 		return getClass().getSimpleName();
 	}
 	public abstract Parameter[] getParameters();
+	
+	public boolean equals(Model model) {
+		return model != null && getName().equals(model.getName());
+	}
 }

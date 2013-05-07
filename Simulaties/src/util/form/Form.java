@@ -6,13 +6,15 @@ import java.util.HashMap;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 
+import core.Configuratie;
+
 import util.Parameter;
 
 public class Form {
 	final protected Composite parent;
 	final protected Parameter[] parameters;
 	
-	final protected HashMap<String, Field> fields = new HashMap<String, Field>();
+	final protected HashMap<String, Field<?>> fields = new HashMap<String, Field<?>>();
 	final protected ArrayList<FormStateListener> formStateListeners = new ArrayList<FormStateListener>();
 	
 	protected Control finalControl = null;
@@ -24,12 +26,14 @@ public class Form {
 		Control previousControl = null;
 		for (final Parameter parameter: parameters) {
 			Class<?> valueType = parameter.getValueType();
-			Field field;
+			Field<?> field;
 			
 			if (valueType.equals(Boolean.class))
 				field = new BooleanField(this, parameter);
 			else if (Number.class.isAssignableFrom(valueType))
 				field = new NumberField(this, parameter);
+			else if (Configuratie.class.isAssignableFrom(valueType))
+				field = new GraphField(this, parameter);
 			else
 				field = new TextField(this, parameter);
 			fields.put(parameter.getName(), field);
@@ -48,14 +52,19 @@ public class Form {
 	
 	public boolean isComplete() {
 		boolean complete = true;
-		Field[] fields = this.fields.values().toArray(new Field[0]);
-		for (Field field: fields)
+		Field<?>[] fields = this.fields.values().toArray(new Field[0]);
+		for (Field<?> field: fields)
 			complete &= !field.isError();
 		return complete;
 	}
 	
 	public Object getValue(Parameter parameter) {
 		return fields.get(parameter.getName()).getValue();
+	}
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public void setValue(Parameter parameter, Object value) {
+		Field field = fields.get(parameter.getName());
+		field.setValue(value);
 	}
 	
 	public void stateChanged() {

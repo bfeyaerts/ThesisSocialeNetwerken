@@ -58,11 +58,11 @@ public class NewExperimentWizard extends WizardDialog {
 			
 			@Override
 			protected void setModel(Evolutie model) {
-				super.setModel(model);
-				
 				diagnoses = model.possibleDiagnoses().getEnumConstants();
 				defaultDiagnose = diagnoses[0];
 				diagnoseColors = new HashMap<Diagnose, java.awt.Color>();
+				
+				super.setModel(model);
 			}
 			
 			protected void setLabelColor(Label label, java.awt.Color awt) {

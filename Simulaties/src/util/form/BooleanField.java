@@ -8,7 +8,7 @@ import org.eclipse.swt.widgets.Control;
 
 import util.Parameter;
 
-public class BooleanField extends Field {
+public class BooleanField extends Field<Boolean> {
 	protected final Button button;
 
 	public BooleanField(Form form, Parameter parameter) {
@@ -19,8 +19,12 @@ public class BooleanField extends Field {
 	}
 
 	@Override
-	public Object getValue() {
+	public Boolean getValue() {
 		return button.getSelection();
+	}
+	@Override
+	public void setValue(Boolean value) {
+		button.setSelection(value);
 	}
 
 	@Override

@@ -6,12 +6,18 @@ import util.Parameter;
 import util.validator.Message;
 import util.validator.MessageType;
 
-public abstract class Field {
+public abstract class Field<T> {
 	final protected Form form;
 	final protected Parameter parameter;
 	
 	protected volatile Message[] messages = null;
 	protected volatile MessageType level = MessageType.INFO;
+	
+	public static class Convertor<Input> {
+		public Object convert(Input input) throws Exception {
+			return input;
+		}
+	}
 	
 	public Field(Form form, Parameter parameter) {
 		this.form = form;
@@ -52,7 +58,8 @@ public abstract class Field {
 		return parameter.getName();
 	}
 	
-	public abstract Object getValue();
+	public abstract T getValue();
+	public abstract void setValue(T value);
 	public abstract Control getControl();
 	
 	public abstract void layout(Control previousControl);

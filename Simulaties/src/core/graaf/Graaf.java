@@ -1,5 +1,7 @@
 package core.graaf;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -12,6 +14,7 @@ import javax.xml.xpath.XPathExpressionException;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import core.Configuratie;
 import core.graaf.modellen.GraafModel;
 
 import util.ParameterParser;
@@ -79,7 +82,31 @@ public class Graaf {
 			Element parameter = (Element) parameters.item(i);
 			String type = (String) xpath.evaluate("@class", parameter, XPathConstants.STRING);
 			String value = (String) xpath.evaluate("@value", parameter, XPathConstants.STRING);
-			setup[i] = ParameterParser.getObject(type, value);
+			if ((value != null) && !value.isEmpty())
+				setup[i] = ParameterParser.getObject(type, value);
+			else try {
+				Class<?> cls = Class.forName(type);
+				Method method = cls.getMethod("readElement", Element.class, XPath.class);
+				setup[i] = method.invoke(null, parameter, xpath);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		Element graph = (Element) xpath.evaluate("graph", element, XPathConstants.NODE);
@@ -122,7 +149,11 @@ public class Graaf {
 								@Override
 								public void writeElementBody(XMLEventWriter eventWriter) throws XMLStreamException {
 									XMLWriter.createAttribute(eventWriter, "class", parameter != null ? parameter.getClass().getName() : null);
-									XMLWriter.createAttribute(eventWriter, "value", parameter != null ? parameter.toString() : null);
+									if (parameter instanceof Configuratie)
+										((Configuratie<?>) parameter).createElement(eventWriter);
+									else
+										XMLWriter.createAttribute(eventWriter, "value", parameter != null ? parameter.toString() : null);
+										
 								}
 							});
 						}

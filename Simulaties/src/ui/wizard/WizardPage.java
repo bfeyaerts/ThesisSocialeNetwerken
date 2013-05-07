@@ -114,6 +114,15 @@ public abstract class WizardPage {
 		public M getModel() {
 			return selectedModel;
 		}
+		public void setModel(M model) {
+			for (int i=0; i<modellen.size(); i++) {
+				if (model.equals(modellen.get(i))) {
+					combo.select(i);
+					wizard.pageStateChanged();
+					break;
+				}
+			}
+		}
 	}
 	
 	public static class ModelSetupPage<M extends Model> extends WizardPage {
@@ -171,6 +180,11 @@ public abstract class WizardPage {
 		}
 		protected void setModel(M model) {
 			this.model = model;
+			if (form == null) {
+				initComponent();
+				composite.layout();
+				form.setFocus();
+			}
 		}
 		
 		public Object[] getSetup() {
@@ -182,6 +196,13 @@ public abstract class WizardPage {
 				return values;
 			} else
 				return null;
+		}
+		public void setSetup(Object[] setup) {
+			if (model != null) {
+				Parameter[] parameters = model.getParameters();
+				for (int i=0; i<parameters.length; i++)
+					form.setValue(parameters[i], setup[i]);
+			}
 		}
 	}
 	

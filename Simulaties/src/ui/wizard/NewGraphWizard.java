@@ -2,6 +2,7 @@ package ui.wizard;
 
 import org.eclipse.swt.widgets.Shell;
 
+import core.Configuratie;
 import core.graaf.Graaf;
 import core.graaf.modellen.GraafModel;
 
@@ -13,8 +14,15 @@ public class NewGraphWizard extends WizardDialog {
 	protected ModelSetupPage<GraafModel> setup;
 	protected volatile Graaf graaf = null;
 	
+	protected boolean generateOnComplete = true;
+	
 	public NewGraphWizard(Shell parentShell) {
 		super(parentShell);
+		setTitle("Nieuwe graaf");
+	}
+	public NewGraphWizard(Shell parentShell, boolean generateOnComplete) {
+		super(parentShell);
+		this.generateOnComplete = generateOnComplete;
 		setTitle("Nieuwe graaf");
 	}
 
@@ -29,11 +37,21 @@ public class NewGraphWizard extends WizardDialog {
 		return new WizardPage[]{selectie, setup};
 	}
 
+	public Configuratie<GraafModel> getConfiguratie() {
+		return new Configuratie<GraafModel>(selectie.getModel(), setup.getSetup());
+	}
+	public void setConfiguratie(Configuratie<GraafModel> configuratie) {
+		selectie.setModel(configuratie.model);
+		setup.setModel(configuratie.model);
+		setup.setSetup(configuratie.setup);
+	}
+	
 	public Graaf getGraaf() {
 		return graaf;
 	}
 	
 	protected void completed() {
-		graaf = new Graaf(selectie.getModel(), setup.getSetup());
+		if (generateOnComplete)
+			graaf = new Graaf(selectie.getModel(), setup.getSetup());
 	}
 }

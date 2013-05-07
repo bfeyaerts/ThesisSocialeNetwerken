@@ -11,17 +11,11 @@ import org.eclipse.swt.widgets.Text;
 
 import util.Parameter;
 
-public class TextField extends Field {
-	public static class Convertor {
-		public Object convert(String text) throws Exception {
-			return text;
-		}
-	}
-	
+public class TextField extends Field<Object> {
 	protected final Label label;
 	protected final Text text;
 	
-	protected Convertor convertor = null;
+	protected Convertor<String> convertor = null;
 
 	public TextField(Form form, Parameter parameter) {
 		super(form, parameter);
@@ -37,7 +31,7 @@ public class TextField extends Field {
 		});
 	}
 
-	public void setConvertor(Convertor convertor) {
+	public void setConvertor(Convertor<String> convertor) {
 		this.convertor = convertor;
 	}
 	
@@ -49,6 +43,10 @@ public class TextField extends Field {
 				value = convertor.convert((String) value);
 			} catch (Exception e) {}
 		return value;
+	}
+	@Override
+	public void setValue(Object value) {
+		text.setText("" + value);
 	}
 
 	@Override
